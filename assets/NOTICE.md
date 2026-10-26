@@ -2,7 +2,7 @@
 
 L'application utilise, pour cette installation personnelle :
 
-- `dofus-emeraude.png`, récupéré depuis `https://static.ankama.com/dofus/www/game/items/200/23002.png` ;
+- `dofus-emeraude.png`, récupéré depuis `https://static.ankama.com/dofus/www/game/items/200/23002.png`, ou depuis le miroir DofusDB `https://api.dofusdb.fr/img/items/23002.png` si le CDN ne répond pas avec une image valide ;
 - les 31 portraits de `classes/` et les petites icônes de `game-icons/`, copiés de l'installation Dosoft locale à la demande de l'utilisateur ;
 - des déclinaisons de taille de l'icône Émeraude pour l'icône Windows et le favicon.
 

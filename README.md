@@ -85,7 +85,7 @@ py -3.12 -m venv .venv
 
 `build.bat` installe les versions verrouillées, récupère les ressources, exécute les tests et construit une version immuable et les deux copies du lanceur. Il n'efface pas les réglages. `build_release.py --app-only` construit uniquement la nouvelle application et actualise le manifeste. Pour vérifier le packaging sans ouvrir de fenêtre : `Reliane.exe --self-test qa-output\packaging.json`.
 
-Le dépôt public ne contient pas les ressources graphiques Dofus. `fetch_assets.py` récupère l'icône Émeraude depuis le CDN d'Ankama et cherche les portraits dans `C:\Program Files (x86)\Dosoft\skin`. Passez `--skin CHEMIN` pour choisir un autre dossier. Sans portraits locaux, des symboles de secours s'affichent. Les ressources de jeu restent soumises aux droits de leurs titulaires ; voir `assets/NOTICE.md`.
+Le dépôt public ne contient pas les ressources graphiques Dofus. `fetch_assets.py` récupère l'icône Émeraude depuis le CDN d'Ankama, avec DofusDB comme miroir de repli, et cherche les portraits dans `C:\Program Files (x86)\Dosoft\skin`. Les images reçues sont validées puis normalisées en PNG. Passez `--skin CHEMIN` pour choisir un autre dossier. Sans portraits locaux, des symboles de secours s'affichent. Les ressources de jeu restent soumises aux droits de leurs titulaires ; voir `assets/NOTICE.md`.
 
 L'application démarre sans élévation. Si vos clients Dofus sont eux-mêmes administrateurs et que Windows empêche les raccourcis ou le focus, lancez explicitement `dist\Reliane.exe --admin`. `--no-admin` reste accepté pour compatibilité. N'utilisez pas simultanément plusieurs gestionnaires avec les mêmes raccourcis.
 

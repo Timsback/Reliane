@@ -3,6 +3,30 @@ import argparse
 from pathlib import Path
 import shutil
 from urllib.request import Request, urlopen
+from io import BytesIO
+from PIL import Image
+
+ICON_URLS = ("https://static.ankama.com/dofus/www/game/items/200/23002.png",
+             "https://api.dofusdb.fr/img/items/23002.png")
+
+
+def download_icon(destination):
+    errors = []
+    for url in ICON_URLS:
+        try:
+            headers = {"User-Agent": "Reliane-personal/1.1", "Accept": "image/png,image/webp,image/*;q=0.8"}
+            with urlopen(Request(url, headers=headers), timeout=20) as response:
+                data = response.read(2_000_001)
+            if len(data) > 2_000_000:
+                raise ValueError("Image trop volumineuse")
+            with Image.open(BytesIO(data)) as source:
+                if not 1 <= min(source.size) <= max(source.size) <= 2048:
+                    raise ValueError("Dimensions inattendues")
+                source.convert("RGBA").save(destination, format="PNG")
+            return
+        except (OSError, ValueError) as exc:
+            errors.append(f"{url} : {type(exc).__name__}")
+    raise RuntimeError("Impossible de récupérer l'icône Dofus. Réessayez avec une connexion Internet.\n"+"\n".join(errors))
 
 
 def main():
@@ -13,12 +37,7 @@ def main():
     assets.mkdir(exist_ok=True)
     egg = assets / "dofus-emeraude.png"
     if not egg.exists():
-        url = "https://static.ankama.com/dofus/www/game/items/200/23002.png"
-        with urlopen(Request(url, headers={"User-Agent": "Reliane-personal/1.1"}), timeout=20) as response:
-            data = response.read(2_000_000)
-        if not data.startswith(b"\x89PNG"):
-            raise ValueError("Le serveur n'a pas renvoyé l'icône attendue.")
-        egg.write_bytes(data)
+        download_icon(egg)
     classes = ("cra", "ecaflip", "eliotrope", "eniripsa", "enutrof", "feca", "forgelance", "huppermage",
                "iop", "osamodas", "ouginak", "pandawa", "roublard", "sacrieur", "sadida", "sram", "steamer", "xelor", "zobal")
     target = assets / "classes"
