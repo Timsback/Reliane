@@ -4,7 +4,7 @@ Validation locale sous Windows 11, Python 3.12 64 bits, le 26 octobre 2026.
 
 ## Tests automatisés
 
-La suite contient 32 tests et vérifie notamment :
+La suite contient 34 tests et vérifie notamment :
 
 - la conservation des réglages hérités et des clés inconnues ;
 - les écritures atomiques, les sauvegardes, les fichiers endommagés et les erreurs de disque ;
@@ -14,6 +14,7 @@ La suite contient 32 tests et vérifie notamment :
 - les parcours sur les vrais widgets Tk aux formats 1080 × 880 et 620 × 660 ;
 - les états distincts des interrupteurs, les contours antialiasés et les contrastes des textes ;
 - la présence des 31 portraits sur cette installation et la transparence du logo ;
+- la récupération d'une image par un miroir, le rejet des réponses HTML et la normalisation des formats ;
 - le refus d'une version modifiée ou d'un chemin sortant du dossier des versions ;
 - la détection des changements du projet sans boucle de reconstruction sur les métadonnées ;
 - les mises à jour Git avec accord, le refus d'une mise à jour et la préservation des réglages et des modifications locales ;
@@ -25,6 +26,8 @@ La suite contient 32 tests et vérifie notamment :
 ```
 
 Le test Git utilise un dépôt nu et deux copies temporaires isolées. Aucune mise à jour fictive n'est publiée sur le dépôt réel pour ce test.
+
+La CI peut exécuter les tests sans images propriétaires et sans contacter les CDN du jeu. Le test de présence des portraits est alors explicitement sauté ; les contrôles utilisent les symboles de secours. Les essais locaux de cette installation vérifient bien les 31 portraits réels.
 
 ## Vérification Win32 et binaire
 

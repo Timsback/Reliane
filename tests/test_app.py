@@ -102,7 +102,9 @@ class AppTests(unittest.TestCase):
             with patch("gui.messagebox.askyesno", return_value=True):
                 gui.load_profile("Test parcours")
             self.assertEqual(app.config.get("leader_name"), "Mistral")
-            with tempfile.TemporaryDirectory(dir=Path(__file__).parent / ".tmp") as folder:
+            temporary_root = Path(__file__).parent / ".tmp"
+            temporary_root.mkdir(exist_ok=True)
+            with tempfile.TemporaryDirectory(dir=temporary_root) as folder:
                 exported = Path(folder) / "export.json"
                 with patch("gui.filedialog.asksaveasfilename", return_value=str(exported)):
                     gui.export_config()
